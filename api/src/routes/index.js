@@ -17,6 +17,7 @@ const getApiInfo = async () => {
     //console.log(apiUrl)
     const apiInfo = apiUrl.data.map(el => {
         return {
+            id: el.id,
             name: el.name,
             height: el.height.metric,
             weight: el.weight.metric,
@@ -61,35 +62,47 @@ const getAllDogs = async () => {
 router.get("/dogs", async (req, res) => {
     const name = req.query.name; //Busco si hay un query con propiedad name.
 
-    var dogsTotal = await getAllDogs();
-    if (name) {
-        var dogsName = await dogsTotal.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
-        dogsName.length ?
+    var dogsTotal = await getAllDogs(); //Me guardo en una variable el resultado de ejecutar la funcion que me trae a todos los perros
+    if (name) { //Ahora me pregunto si tengo un nombre por query.
+        var dogsName = await dogsTotal.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))//Si tengo un nombre por query me guardo en una variable los nombres que coincidan en el filtrado de todos los perros en general.
+        dogsName.length ? // Y me pregunto, si existe el nombre dado lo mando con un status 200 y si no me devuelve un mensaje de error.
             res.status(200).send(dogsName) :
             res.status(404).send("No existe la raza solicitada")
     } else {
-        res.status(200).send(dogsTotal);
+        res.status(200).send(dogsTotal);//Si no me proporcionan nombre por query me traigo a todos los perros.
     }
 
 })
 
 /* //GET/dogs?name="..."
 router.get(`/dogs?name="..."`, async (req, res) => {
-    Esta esta echa en la misma ruta principal porque la fomra de query siempre va a ser igual.
+    Esta esta echa en la misma ruta principal porque la forma de query siempre va a ser igual.
 }) */
 
-//GET/dogs/{idRaza}
-router.get("/dogs/{idRaza}", (req, res) => {
 
+
+//GET/dogs/{idRaza}
+router.get("/dogs/:id", async (req, res) => {
+    const { id } = req.params;
+
+    const razaApi = await getAllDogs();
+    //console.log(razaApi)
+
+    const raza = razaApi.filter(e => e.id == id)
+
+    res.send(raza)
 })
+
+
 
 //GET/temperament
 router.get("/temperament", async (req, res) => {
     const temperamentApi = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${api_key}`)//me traje toda la info de la api
 
     const temperament = temperamentApi.data.map(el => el.temperament
-    )
-        
+    ) //En una variable me guardo todos los temperamentos que existen en la api.(Tengo un array que cada elemento es una cadena de strings con muchso temperamentos)
+    // console.log(temperament)
+
     var asd = function join(arr) {
         var newArray = []
         for (var i = 0; i < arr.length; i++) {
@@ -98,40 +111,64 @@ router.get("/temperament", async (req, res) => {
                 newArray = newArray.concat(arr[i].split(", "))
             }
         }
-        console.log(newArray)
+        //console.log(newArray)
         return newArray
     }
+    //Con la funcion join me creo un array global que contenga a todos los temperamentos que existen concatenando a un array vacio el resultado de splitear cada cadena de string en sus comas. Si no estuviera el concat esto devolveria un array de muchos arrays.
 
-    var daleKeVa = asd(temperament)
+    var daleKeVa = asd(temperament) //Me guardo en una variable la ejecucion de la funcion join, pasandole como argumento temperament.
+    console.log(daleKeVa)
 
-    let result = daleKeVa.filter((item, index) => {
-        return daleKeVa.indexOf(item) === index;
+    daleKeVa.forEach(el => {
+        Temperament.findOrCreate({
+            where: {
+                name: el,
+            }
+        })//Aca le digo que al array de strings que tengo que lo itere y que por cada uno busque si lo tiene y que si no lo cree en la base de datos, pasandole por nombre cada elemento iterado.
     })
-    console.log(result);
 
-    for (var i = 0; i < result.length; i++) {
-        const temp = await Temperament.create({
-            name: result[i]
-        })
-    }
+    const temperamentosTodos = await Temperament.findAll();//Aca voy a buscar todos los temperamentos que tengo en mi base de datos.
+    res.send(temperamentosTodos);//Mando todo mis temperamentos.
 
-    res.send(result)
+
+
+
+
+    //////////////--Esto de aca abajo es una opcion pero solo para quedarse con los temperamentos sin obtenerlos de la base de datos//////////////////
+    /* 
+        let result = daleKeVa.filter((item, index) => {
+            return daleKeVa.indexOf(item) === index;
+        })//En la variable result me guardo el filtrado y la aplicacion del indexOf para obtener el mismo unico array que tenia antes pero ahora sin duplicados.
+        console.log(result);
+    
+        for (var i = 0; i < result.length; i++) {
+            const temp = await Temperament.create({
+                name: result[i]
+            })
+        }//Aca itero por cada temperamento que posea en el array obtenido y por cada temperamento que existe los voy creando en mi base de datos.
+    
+        res.send(result)//Mando el array filtrado, con la totalidad de los temperamentos. */
+    ////////////////////////////
 })
 
 //POST/dog
 router.post("/dog", async (req, res) => {
-    /*  const { name, altura, peso, añosDeVida } = req.body,
- 
-     const dog = await Dog.create({
-         name: name,
-         altura: altura,
-         peso: peso,
-         añosDeVida: añosDeVida,
-     })
- 
-     await dog.addTemperament(Temperament);//aca hay un temita con temprament.
-     res.status(200).send("Perro creado con exito");
-  */
+    let { name, altura, peso, añosDeVida, createdInDb, temperament } = req.body;
+
+    let dogCreated = await Dog.create({
+        name, altura, peso, añosDeVida, createdInDb,
+    });
+
+    let temperamentDb = await Temperament.findAll({
+        where: {
+            name: temperament
+        }
+    });
+
+    dogCreated.addTemperament(temperamentDb)
+    res.send("Perro creado con exito")
+
+
 })
 
 module.exports = router;
