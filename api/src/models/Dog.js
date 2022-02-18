@@ -8,5 +8,27 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    id: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      primaryKey: true,
+    },
+    altura: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    peso: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    añosDeVida: {
+      type: DataTypes.STRING,
+    },
+    //Creo una propiedad que solo va a existir en los dogs que esten en base de datos, para luego simplificar la busqueda.
+    createdInDb: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
   });
 };
