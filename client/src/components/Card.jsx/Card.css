@@ -1,0 +1,15 @@
+.perritoDiv{
+    background-color: red;
+    width: 20%;
+    margin: 0 auto;
+   text-align: center;
+   border-radius: 5% 5% 0 0 ;
+}
+.imgDiv{
+    width: 98%;
+    height: 100%;
+    display: block;
+    margin: auto;
+    
+}
+/* flex wrap */

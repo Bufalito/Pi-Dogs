@@ -103,6 +103,8 @@ router.get("/temperament", async (req, res) => {
     ) //En una variable me guardo todos los temperamentos que existen en la api.(Tengo un array que cada elemento es una cadena de strings con muchso temperamentos)
     // console.log(temperament)
 
+    //Investigar .flat()
+
     var asd = function join(arr) {
         var newArray = []
         for (var i = 0; i < arr.length; i++) {
