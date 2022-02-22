@@ -13,19 +13,36 @@ const axios = require("axios")
 
 export function getRazaInfo() {
     return async function (dispatch) {
-        const getRazaInfo = await axios.get("http://localhost:3001/dogs")
+        const getRazaInfo = await axios("http://localhost:3001/dogs")
 
         return dispatch({ type: "GET_RAZA", payload: getRazaInfo.data });
     };
 }
 
-/* export function getMovieDetail(id) {
-    return function (dispatch) {
-        return fetch(`http://www.omdbapi.com/?i=${id}&apikey=d1dcdf9c`)
-            .then(response => response.json())
-            .then(json => {
-                dispatch({ type: "GET_MOVIE_DETAIL", payload: json });
-            });
+export function getDetalleRaza(id) {
+    return async function (dispatch) {
+        const getDetalleRaza = await axios(`http://localhost:3001/dogs/${id}`)
+
+        return dispatch({
+            type: "GET_DETALLE_RAZA",
+            payload: getDetalleRaza.data
+        })
     };
 }
- */
+export function getTemperaments() {
+    return async function (dispatch) {
+        const getRazaInfo = await axios("http://localhost:3001/temperament")
+
+        return dispatch({ type: "GET_TEMPERAMENTS", payload: getRazaInfo.data });
+    };
+}
+
+
+export function filtroRazasPorTemperamento(payload) {  //payload = e.target.value
+    console.log(payload)
+    return {
+        type: "FILTRO_POR_TEMPERAMENTO",
+        payload
+    }
+
+}

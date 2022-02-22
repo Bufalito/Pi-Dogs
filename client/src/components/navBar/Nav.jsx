@@ -11,7 +11,7 @@ export default function Nav(/* Aca voy a tener que pasar una funcion que busque 
     return (
         <nav className='nav'>
             <span>
-                <img src={logo} alt="img de perritos" className='img'/>
+                <img src={logo} alt="img de perritos" className='img' />
             </span>
 
             <span>

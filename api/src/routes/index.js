@@ -87,10 +87,13 @@ router.get("/dogs/:id", async (req, res) => {
 
     const razaApi = await getAllDogs();
     //console.log(razaApi)
+    if (id) {
+        const raza = razaApi.filter(e => e.id == id)
+        raza.length ?
+            res.status(200).json(raza) :
+            res.status(404).send("No se encontro raza")
+    }
 
-    const raza = razaApi.filter(e => e.id == id)
-
-    res.send(raza)
 })
 
 

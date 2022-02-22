@@ -9,9 +9,9 @@ export default function SearchBar(/* aca tenog que pasarle la funcoin que busca 
             <input
                 type="text"
                 placeholder='Buscar Raza'
-                value="Buscar" /* {raza} */
+                 /* {raza} */
                 /* aca va el onChange para capturar el cambio */
-                onChange={function () { }}
+                
             />
             <input
                 type="submit"
