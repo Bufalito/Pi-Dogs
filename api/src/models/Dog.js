@@ -14,15 +14,15 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true,
     },
-    altura: {
+    height: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    peso: {
+    weight: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    añosDeVida: {
+    life_span: {
       type: DataTypes.STRING,
     },
     //Creo una propiedad que solo va a existir en los dogs que esten en base de datos, para luego simplificar la busqueda.

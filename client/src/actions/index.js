@@ -29,6 +29,7 @@ export function getDetalleRaza(id) {
         })
     };
 }
+
 export function getTemperaments() {
     return async function (dispatch) {
         const getRazaInfo = await axios("http://localhost:3001/temperament")
@@ -37,12 +38,24 @@ export function getTemperaments() {
     };
 }
 
-
 export function filtroRazasPorTemperamento(payload) {  //payload = e.target.value
-    console.log(payload)
+    /*  console.log(payload) */
     return {
         type: "FILTRO_POR_TEMPERAMENTO",
         payload
     }
+}
 
+export function filtroDbOrApi(payload) {
+    return {
+        type: "FILTRO_DB_OR_API",
+        payload
+    }
+}
+
+export function ordenPorNombre(payload) {
+    return {
+        type: "ORDEN_POR_NOMBRE",
+        payload
+    }
 }

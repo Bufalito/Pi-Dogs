@@ -1,4 +1,29 @@
 .landing{
     background-image: url("https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
     height: 100vh; /* buscar vh */
+    background-position-y: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.link{
+    margin-top: 15px;
+    border-radius: 100%;
+}
+.imgWelcome{
+    width: 400px;
+    height: 230px;
+    display: block;
+    justify-content: center;
+    border: 3px solid #ddd;
+    border-radius: 100%;
+    padding: 5px;
+    background-color: dimgray;
+
+
+}
+.imgWelcome:hover{
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }

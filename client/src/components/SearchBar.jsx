@@ -4,19 +4,14 @@ import React from 'react';
 
 
 export default function SearchBar(/* aca tenog que pasarle la funcoin que busca */) {
+
     return (
-        <form action="">
+        <form >
             <input
                 type="text"
                 placeholder='Buscar Raza'
-                 /* {raza} */
-                /* aca va el onChange para capturar el cambio */
-                
             />
-            <input
-                type="submit"
-                value="Agregar"
-            />
+                <input type="submit" value="Buscar" />
         </form>
     )
 

@@ -13,7 +13,7 @@ export default function CardDetalle({ nombre, pic, peso, temperamento, altura, a
             <h6>Años de vida: {añosDeVida} </h6>
             <p><u> Temperamentos: </u> <br /> {temperamento}</p>
             <img src={pic} alt="imagen perrito" className='imgDiv' />
-
+            <button>Home!</button>
         </div>
     )
 

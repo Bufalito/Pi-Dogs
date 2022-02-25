@@ -6,6 +6,7 @@ const initialState = {
 
 };
 
+
 function rootReducer(state = initialState, action) {
     switch (action.type) {
         case "GET_RAZA":
@@ -37,6 +38,35 @@ function rootReducer(state = initialState, action) {
             })
             return {
                 ...state, razaLoaded: tempFilter
+            }
+        case "FILTRO_DB_OR_API":
+            const dbOrApiFilter = action.payload === "creados" ? state.totalRazas.filter(el => el.createdInDb) : state.totalRazas.filter(el => !el.createdInDb)
+            return {
+                ...state, razaLoaded: action.payload === "todos" ? state.totalRazas : dbOrApiFilter
+            }
+        case "ORDEN_POR_NOMBRE":
+            const arrSort = action.payload === "ascendete" ?
+                state.razaLoaded.sort(function (a, b) {
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+                    return 0;
+                }) :
+                state.razaLoaded.sort(function (a, b) {
+                    if (a.name > b.name) {
+                        return -1;
+                    }
+                    if (a.name < b.name) {
+                        return 1;
+                    }
+                    return 0;
+                })
+            return {
+                ...state,
+                razaLoaded: arrSort
             }
         default:
             return state;

@@ -17,7 +17,7 @@ export default function Paginado({ razasPorPagina, allRazas, paginado }) {
                         return (
                             <li className="number" key={number}>
 
-                                <button onClick={() => paginado(number)} >{number}</button>
+                                <button onClick={() => paginado(number)}>{number}</button>
                             </li>
                         )
                     })
