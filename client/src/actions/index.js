@@ -19,6 +19,23 @@ export function getRazaInfo() {
     };
 }
 
+export function getRazaSearch(name) {
+    return async function (dispatch) {
+        try {
+            const getRazaSearch = await axios(`http://localhost:3001/dogs?name=${name}`)
+
+            return dispatch({
+                type: "GET_RAZA_SEARCH",
+                payload: getRazaSearch.data
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+}
+
 export function getDetalleRaza(id) {
     return async function (dispatch) {
         const getDetalleRaza = await axios(`http://localhost:3001/dogs/${id}`)

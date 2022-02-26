@@ -68,6 +68,10 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 razaLoaded: arrSort
             }
+        case "GET_RAZA_SEARCH":
+            return {
+                ...state, razaLoaded: action.payload
+            }
         default:
             return state;
     }

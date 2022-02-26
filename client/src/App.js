@@ -9,7 +9,7 @@ import DetalleRaza from './components/DetalleRaza/DetalleRaza';
 
 
 function App() {
- 
+
   return (
 
     <BrowserRouter>

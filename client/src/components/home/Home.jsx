@@ -8,6 +8,7 @@ import Nav from '../navBar/Nav';
 import Card from '../Card/Card';
 import { useDispatch, useSelector } from 'react-redux';
 import Paginado from '../Paginado/Paginado';
+import SearchBar from '../SearchBar';
 
 
 export default function Home() {
@@ -59,12 +60,12 @@ export default function Home() {
         dispatch(ordenPorNombre(e.target.value));
         setPaginaActual(1);
         setOrden(`Ordenado ${e.target.value}`)
-
-
     }
+
 
     return (
         <div >
+            {/* <SearchBar /> */}
             <Nav />
             <div>
                 <button onClick={e => { handleClick(e) }}>
@@ -110,6 +111,8 @@ export default function Home() {
                 allRazas={allRazas.length}
                 paginado={paginado}
             />
+
+
 
         </div >
     )
