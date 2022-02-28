@@ -5,6 +5,7 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import LandingPage from './components/landingPage/LandingPage';
 import Home from './components/home/Home';
 import DetalleRaza from './components/DetalleRaza/DetalleRaza';
+import Formulario from "./components/Formulario/Formulario";
 
 
 
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/" component={LandingPage} />
         <Route path="/home" component={Home} />
         <Route path={`/dogs/:id`} component={DetalleRaza} />
+        <Route path="/formulario" component={Formulario} />
       </Switch>
     </BrowserRouter>
 

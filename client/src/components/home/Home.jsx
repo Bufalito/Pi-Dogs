@@ -8,7 +8,6 @@ import Nav from '../navBar/Nav';
 import Card from '../Card/Card';
 import { useDispatch, useSelector } from 'react-redux';
 import Paginado from '../Paginado/Paginado';
-import SearchBar from '../SearchBar';
 
 
 export default function Home() {
@@ -64,15 +63,23 @@ export default function Home() {
 
 
     return (
-        <div >
+        <div className='fd'>
             {/* <SearchBar /> */}
             <Nav />
-            <div>
-                <button onClick={e => { handleClick(e) }}>
-                    Recargar razas.
+            <div className='botonesHome'>
+                <h1 className='titulo'><div className='textTitulo'>Individual Project - Henry Dogs</div></h1>
+                <button onClick={e => { handleClick(e) }} >
+                    Recargar razas
                 </button>
+
+                <Link to={"/formulario"}>
+                    <button >
+                        Crear nueva raza
+                    </button>
+                </Link>
+
             </div>
-            <div>
+            <div className='selectsHome'>
                 <select onChange={(e) => handleFilter(e)}>
                     <option value="Todas las razas">Todos los temperamentos</option>
                     {allTemperament && allTemperament.map(el => (
@@ -80,7 +87,7 @@ export default function Home() {
                     ))}
                 </select>
 
-                <select onChange={(e) => handleFilterDbOrApi(e)}>
+                <select onChange={(e) => handleFilterDbOrApi(e)} id="asd">
                     <option value="todos">Todos</option>
                     <option value="creados">Creados</option>
                     <option value="existentes">Existentes</option>
@@ -93,26 +100,23 @@ export default function Home() {
 
             </div>
 
-            <div className='asd'>
-                {razasActuales.map(razas => {
-                    return (
-                        <div key={razas.id} className="divCard">
-                            <Link to={`/dogs/${razas.id}`} className="linkDiv" >
-                                <Card pic={razas.url_image} nombre={razas.name} peso={razas.weight} temperamento={razas.temperaments} />
-                            </Link>
-                        </div>
-                    )
-
-                })}
-            </div>
+                <div className='asd'>
+                    {razasActuales.map(razas => {
+                        return (
+                            <div key={razas.id} className="divCard">
+                                <Link to={`/dogs/${razas.id}`} className="linkDiv" >
+                                    <Card pic={razas.url_image} nombre={razas.name} peso={razas.weight} temperamento={razas.temperaments} />
+                                </Link>
+                            </div>
+                        )
+                    })}
+                </div>
 
             <Paginado
                 razasPorPagina={razasPorPagina}
                 allRazas={allRazas.length}
                 paginado={paginado}
             />
-
-
 
         </div >
     )

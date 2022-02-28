@@ -10,15 +10,15 @@ const initialState = {
 function rootReducer(state = initialState, action) {
     switch (action.type) {
         case "GET_RAZA":
-            if (!state.razaLoaded.length) {
-                return {
-                    ...state, razaLoaded: action.payload, totalRazas: action.payload
-                }
-            } else {
-                return {
-                    ...state, totalRazas: action.payload
-                }
+            /* if (!state.razaLoaded.length) { */
+            return {
+                ...state, razaLoaded: action.payload, totalRazas: action.payload
             }
+        /* } else {
+            return {
+                ...state, totalRazas: action.payload
+            }
+        } */
         case "GET_DETALLE_RAZA":
             return {
                 ...state, detalleRaza: action.payload
@@ -71,6 +71,10 @@ function rootReducer(state = initialState, action) {
         case "GET_RAZA_SEARCH":
             return {
                 ...state, razaLoaded: action.payload
+            }
+        case "POST_FORMULARIO":
+            return {
+                ...state
             }
         default:
             return state;

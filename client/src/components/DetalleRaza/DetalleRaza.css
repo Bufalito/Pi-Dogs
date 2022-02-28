@@ -1,0 +1,16 @@
+.dsa{
+display: flex;
+flex-direction: column;
+text-align: center;
+width: 65%;
+border: 2px solid #87553A;
+background-color: #D0CCC0;
+box-shadow: inset 0 0 15px 10px #87553A;
+margin: 0 auto;
+margin-top: 45px;
+border-radius: 5%;
+padding: 15px;
+}
+.btnDetalle{
+    width: 100%;
+}

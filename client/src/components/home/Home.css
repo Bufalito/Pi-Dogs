@@ -1,22 +1,47 @@
 .divCard{
     width: 15rem;
-    border: 2px solid black;
-    background-color: red;
+    border: 2px solid #87553A;
+    background-color: #D0CCC0;
     margin: 10px;
     border-radius: 10%;
+    box-shadow: inset 0 0 15px 10px #87553A;
+}
+.divCard:hover{
+    box-shadow: 0 0 4px 2px rgba(247, 248, 252, 0.5);
+    transform: scale(1.05);
 }
 .asd{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    align-items: flex-end;
+    align-items: stretch;
 }
 .linkDiv{
     text-decoration: none;
     color: black;
     text-align: center;
 }
+.botonesHome{
+    text-align: center;
+    background: none;
+}
+.selectsHome{
+    text-align: center;
+    background: none;
+    margin-bottom: 20px;
+}
+.titulo{
+    background-color: #B77F4E;
+    border: 2px solid #87553A;
+    /* border: 2px solid #87553A;
+    background-color: #D0CCC0; */
+    box-shadow: inset 0 0 15px 10px #87553A;
 
-.btnAzules{
-    background-color:red
+    margin-top: 0px;
+    width: 60%;
+    margin: 0 auto;
+    border-radius: 0px 0px 100px 100px;
+}
+.btnBody{
+    display: flex;
 }

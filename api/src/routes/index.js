@@ -47,6 +47,7 @@ const getDbInfo = async () => {
     })
 }
 
+
 //Aca me traigo todos los perros.
 const getAllDogs = async () => {
     const apiInfo = await getApiInfo();
@@ -120,6 +121,7 @@ router.get("/temperament", async (req, res) => {
         //console.log(newArray)
         return newArray
     }
+
     //Con la funcion join me creo un array global que contenga a todos los temperamentos que existen concatenando a un array vacio el resultado de splitear cada cadena de string en sus comas. Si no estuviera el concat esto devolveria un array de muchos arrays.
 
     var daleKeVa = asd(temperament) //Me guardo en una variable la ejecucion de la funcion join, pasandole como argumento temperament.
@@ -136,37 +138,21 @@ router.get("/temperament", async (req, res) => {
     const temperamentosTodos = await Temperament.findAll();//Aca voy a buscar todos los temperamentos que tengo en mi base de datos.
     res.send(temperamentosTodos);//Mando todo mis temperamentos.
 
-
-
-
-
-    //////////////--Esto de aca abajo es una opcion pero solo para quedarse con los temperamentos sin obtenerlos de la base de datos//////////////////
-    /* 
-        let result = daleKeVa.filter((item, index) => {
-            return daleKeVa.indexOf(item) === index;
-        })//En la variable result me guardo el filtrado y la aplicacion del indexOf para obtener el mismo unico array que tenia antes pero ahora sin duplicados.
-        console.log(result);
-    
-        for (var i = 0; i < result.length; i++) {
-            const temp = await Temperament.create({
-                name: result[i]
-            })
-        }//Aca itero por cada temperamento que posea en el array obtenido y por cada temperamento que existe los voy creando en mi base de datos.
-    
-        res.send(result)//Mando el array filtrado, con la totalidad de los temperamentos. */
-    ////////////////////////////
 })
 
 //POST/dog
 router.post("/dog", async (req, res) => {
-    const { name, height, weight, life_span, createdInDb, temperament } = req.body;
-    
-    console.log(temperament)
-    console.log(Temperament)
+    const { name, height, weight, life_span, createdInDb, temperament, url_image} = req.body;
+
+    /*  console.log(name) */
+
+
+    /*   console.log("post temp", temperament) */
 
     const dogCreated = await Dog.create({
-        name, height, weight, life_span, createdInDb
+        name, height, weight, life_span, createdInDb, url_image
     });
+
 
     const temperamentDb = await Temperament.findAll({
         where: {
@@ -174,11 +160,11 @@ router.post("/dog", async (req, res) => {
         }
     });
 
-    console.log("hola", temperamentDb);
-    dogCreated.addTemperaments(temperamentDb);
+    dogCreated.addTemperament(temperamentDb);
 
 
     res.status(200).send(dogCreated);
+    console.log("asdasd",dogCreated)
 
 
 });

@@ -3,7 +3,7 @@ import "./Paginado.css"
 
 export default function Paginado({ razasPorPagina, allRazas, paginado }) {
     const numeroPagina = []
-    
+
     for (var i = 1; i <= Math.ceil(allRazas / razasPorPagina); i++) {
         numeroPagina.push(i)
 

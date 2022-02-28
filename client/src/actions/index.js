@@ -31,6 +31,7 @@ export function getRazaSearch(name) {
 
         } catch (error) {
             console.log(error)
+            alert("Raza no existente")
         }
 
     }
@@ -74,5 +75,14 @@ export function ordenPorNombre(payload) {
     return {
         type: "ORDEN_POR_NOMBRE",
         payload
+    }
+}
+
+export function postFormulario(payload) {
+    console.log(payload)
+    return async function () {
+        const response = await axios.post("http://localhost:3001/dog", payload);
+        /* console.log(response) */
+        return response;
     }
 }

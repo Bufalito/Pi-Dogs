@@ -9,17 +9,15 @@ import "./Card.css";
 export default function Card({ nombre, pic, peso, temperamento }) {
     return (
         <div className='perritoDiv'>
+            <div className='infoCard'>
+                <p>
+                    <strong><u>Raza:</u></strong><br /> {nombre} <br />
+                    <strong><u>Peso:</u></strong><br /> {peso} (Kg) <br />
+                    <strong><u>Temperamentos:</u></strong><br /> {temperamento} <br />
+                </p>
+            </div>
 
-            <p>
-                Raza: {nombre} <br />
-                Peso: {peso} <br />
-                Temperamentos: {temperamento} <br />
-            </p>
-
-            {/* <h3>Raza: <br /> {nombre}</h3>
-            <h5>Peso: {peso} Kg</h5>
-            <p className='testoTemp'><u> Temperamentos: </u> <br /> {temperamento}</p> */}
-            <img src={pic} alt="imagen perrito" />
+            <img src={pic} alt="imagen perrito"/>
         </div>
     )
 
