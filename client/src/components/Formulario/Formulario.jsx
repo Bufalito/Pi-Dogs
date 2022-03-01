@@ -82,6 +82,13 @@ export default function Formulario() {
         /*   console.log("submit",input.temperament.toString()) */
     }
 
+    function handleDelete(el) {
+        setInput({
+            ...input,
+            temperament: input.temperament.filter(temp => temp !== el)
+        })
+    }
+
     useEffect(() => {
         dispatch(getTemperaments())
     }, [dispatch]);
@@ -161,7 +168,15 @@ export default function Formulario() {
                         {/* {errors.temperament && (
                             <p className={errors.temperament ? "tempIncorrecto" : ""} >{errors.temperament}</p>
                         )} */}
-                        {input.temperament.map(el => el + " ,")}
+
+                        {input.temperament.map(el =>
+
+                            <div className="ordenBtn">
+                                {el + " "}
+                                <button type="button" className="btnX" onClick={() => handleDelete(el)}>x</button>
+                            </div>
+
+                        )}
 
                         <div>
                             <input type={!(input.name || input.height) ? "button" : "submit"} value={!(input.name && input.height) ? "Completar Formulario" : "Enviar Formulario!"} />
@@ -170,7 +185,7 @@ export default function Formulario() {
                     </div>
                 </form>
                 <div className="cardForm">
-                    <Card nombre={input.name} pic={input.url_image ? input.url_image : logo} peso={input.weight} temperamento={input.temperament.map(el => el + " ,")} />
+                    <Card nombre={input.name} pic={input.url_image ? input.url_image : logo} peso={input.weight} temperamento={input.temperament.map(el => el + ", ")} />
                 </div>
             </div>
         </div>

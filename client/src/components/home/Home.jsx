@@ -9,6 +9,7 @@ import Card from '../Card/Card';
 import { useDispatch, useSelector } from 'react-redux';
 import Paginado from '../Paginado/Paginado';
 import loading from "../../img/482.gif"
+import logoDefault from "../../img/dog.png"
 
 
 export default function Home() {
@@ -119,16 +120,16 @@ export default function Home() {
 
             <div className='asd'>
                 {allRazas.length ?
-                razasActuales.map(razas => {
-                    return (
-                        <div key={razas.id} className="divCard">
-                            <Link to={`/dogs/${razas.id}`} className="linkDiv" >
-                                <Card pic={razas.url_image} nombre={razas.name} peso={razas.weight} temperamento={razas.temperaments} />
-                            </Link>
-                        </div>
-                    )
-                })
-            : <img src={loading} alt="" className='imgLoading' /> }
+                    razasActuales.map(razas => {
+                        return (
+                            <div key={razas.id} className="divCard">
+                                <Link to={`/dogs/${razas.id}`} className="linkDiv" >
+                                    <Card pic={razas.url_image ? razas.url_image : logoDefault} nombre={razas.name} peso={razas.weight} temperamento={razas.temperaments} />
+                                </Link>
+                            </div>
+                        )
+                    })
+                    : <img src={loading} alt="" className='imgLoading' />}
 
             </div>
 
