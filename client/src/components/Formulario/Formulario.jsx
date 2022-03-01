@@ -6,11 +6,35 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Formulario.css"
 import Card from "../Card/Card";
 import logo from "../../img/dog.png"
+import Nav from "../navBar/Nav";
+
+
+function validacion(input) {
+    let errors = {};
+    if (!input.name) {
+        errors.name = "Se requiere nombre"
+    }
+    if (!input.weight) {
+        errors.weight = "Se requiere peso"
+    }
+    if (!input.height) {
+        errors.height = "Se requiere una altura"
+    }
+    if (!input.temperament.length) {
+        errors.temperament = "Se requiere al menos un temperamento"
+    }
+    return errors
+}
+
+
+
+
 
 export default function Formulario() {
     const dispatch = useDispatch()
     const history = useHistory()
     const temperamentos = useSelector((state) => state.temperamentosRazas)
+    const [errors, setErrors] = useState({})
 
     const [input, setInput] = useState({
         name: "",
@@ -29,6 +53,10 @@ export default function Formulario() {
             [e.target.name]: e.target.value
         })
         /*  console.log(input) */
+        setErrors(validacion({
+            ...input,
+            [e.target.name]: e.target.value
+        }))
     }
 
     function handleSelect(e) {
@@ -63,6 +91,7 @@ export default function Formulario() {
 
     return (
         <div>
+            <Nav />
             <div>
                 <Link to="/home">
                     <button>Volver!</button>
@@ -70,40 +99,41 @@ export default function Formulario() {
             </div>
             <div className="fff">
                 {/* <h1>Soy el formulario.</h1> */}
-
                 <form onSubmit={(e) => handleSubmit(e)} className="formulario">
                     <div className="divForm">
                         <h4>FORMULARIO</h4>
 
+
+
                         <input
                             type="text"
-                            placeholder="Nombre"
+                            placeholder={errors.name ? errors.name : "Nombre"}
                             id="nombre"
                             value={input.name}
                             name="name"
                             onChange={(e) => handleChange(e)}
+                            className={errors.name ? "placeIncorrecto" : ""}
                         /> <br /> {/* Nombre de la raza */}
-
 
                         <input
                             type="number"
-                            placeholder="Peso"
+                            placeholder={errors.weight ? errors.weight : "Peso (Kg)"}
                             id="peso"
                             value={input.weight}
                             name="weight"
                             onChange={(e) => handleChange(e)}
+                            className={errors.weight ? "placeIncorrecto" : ""}
                         /> <br /> {/* Peso de la raza */}
-
 
                         <input
                             type="number"
-                            placeholder="Altura"
+                            placeholder={errors.height ? errors.height : "Altura (Cm)"}
                             id="altura"
                             value={input.height}
                             name="height"
                             onChange={handleChange}
+                            className={errors.height ? "placeIncorrecto" : ""}
                         /> <br /> {/* Altura de la raza */}
-
 
                         <input
                             type="number"
@@ -113,15 +143,6 @@ export default function Formulario() {
                             name="life_span"
                             onChange={handleChange}
                         /> <br /> {/* Esperanza de vida de la raza */}
-
-                        {/* <label>Temperamentos:</label>
-                    <input
-                        type="text"
-                        placeholder="Temperamentos"
-                        id="temperamentos"
-                        value={input.temperaments}
-                        name="temperaments"
-                    /> <br /> {/* Temperamentos de la raza */}
 
                         <input
                             type="text"
@@ -137,10 +158,15 @@ export default function Formulario() {
                                 <option key={el.id} value={el.name}>{el.name}</option>
                             ))}
                         </select> <br />
+                        {/* {errors.temperament && (
+                            <p className={errors.temperament ? "tempIncorrecto" : ""} >{errors.temperament}</p>
+                        )} */}
                         {input.temperament.map(el => el + " ,")}
+
                         <div>
-                            <input type="submit" value="Crear" />
+                            <input type={!(input.name || input.height) ? "button" : "submit"} value={!(input.name && input.height) ? "Completar Formulario" : "Enviar Formulario!"} />
                         </div>
+
                     </div>
                 </form>
                 <div className="cardForm">

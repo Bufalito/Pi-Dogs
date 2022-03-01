@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+/* import { useHistory } from 'react-router-dom'; */
 import { getRazaSearch } from '../actions'
 import "./navBar/Nav.css"
 
@@ -9,7 +9,7 @@ import "./navBar/Nav.css"
 
 export default function SearchBar(/* aca tenog que pasarle la funcoin que busca */) {
     const dispatch = useDispatch()
-    const history = useHistory()
+    /* const history = useHistory() */
     const [raza, setRaza] = useState("")
 
     function onChange(e) {

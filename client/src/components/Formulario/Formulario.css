@@ -14,7 +14,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 .cardForm{
     width: 15rem;
@@ -24,4 +24,21 @@
     border-radius: 10%;
     box-shadow: inset 0 0 15px 10px #87553A;
     text-align: center;
+}
+.errorName{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: red;
+    font-size: 12px;
+}
+
+.placeIncorrecto::placeholder { color: red; }
+
+.tempIncorrecto{
+    color: red;
+    margin-top: 0px;
+    font-size: 14px;
+}
+.inputPeso{
+    width: 81%;
 }

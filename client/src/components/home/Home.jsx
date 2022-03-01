@@ -101,13 +101,13 @@ export default function Home() {
 
                 <select onChange={(e) => handleFilterDbOrApi(e)} id="asd">
                     <option value="todos">Todos</option>
-                    <option value="creados">DataBase</option>
-                    <option value="existentes">Api</option>
+                    <option value="creados">Razas creadas</option>
+                    <option value="existentes">Razas existentes</option>
                 </select>
 
                 <select onChange={(e) => handleSort(e)}>
-                    <option value="ascendete">Ascendente</option>
-                    <option value="descendente">Descendente</option>
+                    <option value="ascendete">A-Z</option>
+                    <option value="descendente">Z-A</option>
                 </select>
 
                 <select onChange={(e) => handleSort2(e)}>
