@@ -12,6 +12,7 @@ export default function Paginado({ razasPorPagina, allRazas, paginado }) {
     return (
         <nav>
             <ul className="paginado">
+
                 {
                     numeroPagina && numeroPagina.map(number => {
                         return (
@@ -22,6 +23,7 @@ export default function Paginado({ razasPorPagina, allRazas, paginado }) {
                         )
                     })
                 }
+
             </ul>
         </nav >
     )

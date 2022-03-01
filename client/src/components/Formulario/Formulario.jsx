@@ -18,6 +18,7 @@ export default function Formulario() {
         temperament: [],
         url_image: "",
     })
+    console.log(input.temperaments)
 
 
     function handleChange(e) {
@@ -36,7 +37,7 @@ export default function Formulario() {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        /* console.log("hanldesubmit", input.temperaments) */
+        console.log("hanldesubmit", input.temperaments)
         dispatch(postFormulario(input))
         alert("Raza creada con exito!")
         setInput({
@@ -48,6 +49,7 @@ export default function Formulario() {
             url_image: "",
         })
         history.push("/home")
+        console.log("submit",input.temperament)
     }
 
     useEffect(() => {

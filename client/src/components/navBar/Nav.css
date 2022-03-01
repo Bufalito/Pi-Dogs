@@ -21,3 +21,8 @@
 .logo:hover{
     transform: scale(1.1);
 }
+.gifNav{
+    margin-top: 10px;
+    width: 5%;
+    height: 5%;
+}

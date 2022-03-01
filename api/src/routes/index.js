@@ -16,6 +16,29 @@ const getApiInfo = async () => {
     const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${api_key}`)
     //console.log(apiUrl)
     const apiInfo = apiUrl.data.map(el => {
+
+        /* const suma = Number(el.weight.metric.split("-")[0]) + Number(el.weight.metric.split("-")[1])
+        const promedio = suma / 2 */
+        const af = el.weight.metric.split("-")
+        var aux = [];
+        for (var i = 0; i < af.length; i++) {
+            if (Number(af[i])) {
+                aux.push(Number(af[i]));
+                aux;
+            }
+        }
+        function abc(aux) {
+            if (aux.length === 1) {
+                const valorUnico = aux[0];
+                return valorUnico;
+            } else {
+                const suma = aux[0] + aux[1];
+                suma;
+                const valor = suma / 2;
+                return valor;
+            }
+        }
+
         return {
             id: el.id,
             name: el.name,
@@ -24,7 +47,9 @@ const getApiInfo = async () => {
             //breed_group: el.breed_group,
             life_span: el.life_span,
             url_image: el.image.url,
-            temperaments: el.temperament
+            temperaments: el.temperament,
+
+            promedio: abc(aux)
 
         }
     });
@@ -142,7 +167,7 @@ router.get("/temperament", async (req, res) => {
 
 //POST/dog
 router.post("/dog", async (req, res) => {
-    const { name, height, weight, life_span, createdInDb, temperament, url_image} = req.body;
+    const { name, height, weight, life_span, createdInDb, temperament, url_image } = req.body;
 
     /*  console.log(name) */
 
@@ -153,18 +178,20 @@ router.post("/dog", async (req, res) => {
         name, height, weight, life_span, createdInDb, url_image
     });
 
+    /*   console.log("1, : ", res); */
 
     const temperamentDb = await Temperament.findAll({
         where: {
             name: temperament
         }
     });
+    console.log("tempdb", temperamentDb)
 
     dogCreated.addTemperament(temperamentDb);
 
 
     res.status(200).send(dogCreated);
-    console.log("asdasd",dogCreated)
+    console.log("asdasd", dogCreated)
 
 
 });

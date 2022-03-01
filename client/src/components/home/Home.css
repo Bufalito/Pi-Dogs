@@ -45,3 +45,10 @@
 .btnBody{
     display: flex;
 }
+.btnbtn{
+    display: flex;
+}
+.textTitulo{
+    font-family: -webkit-body;
+}
+/* 'Courier New', Courier, monospace; */

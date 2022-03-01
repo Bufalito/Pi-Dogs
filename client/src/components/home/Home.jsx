@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./Home.css";
 import { Link } from 'react-router-dom';
 
-import { getRazaInfo, filtroRazasPorTemperamento, getTemperaments, filtroDbOrApi, ordenPorNombre } from '../../actions';
+import { getRazaInfo, filtroRazasPorTemperamento, getTemperaments, filtroDbOrApi, ordenPorNombre, ordenPorPeso } from '../../actions';
 
 import Nav from '../navBar/Nav';
 import Card from '../Card/Card';
@@ -22,6 +22,7 @@ export default function Home() {
     //////////////////////////////FILTRADO DE TEMPERAMENTOS///////////////////////////////////
 
     const [/* orden */, setOrden] = useState("")
+    const [/* ordenPeso */, setOrdenPeso] = useState("")
 
 
     ////////////////////////////PAGINADO////////////////////////////////////
@@ -44,6 +45,7 @@ export default function Home() {
     function handleClick(e) {
         e.preventDefault();
         dispatch(getRazaInfo())
+        setPaginaActual(1);
     }
 
     function handleFilter(e) {
@@ -57,8 +59,17 @@ export default function Home() {
     function handleSort(e) {
         e.preventDefault();
         dispatch(ordenPorNombre(e.target.value));
+
         setPaginaActual(1);
         setOrden(`Ordenado ${e.target.value}`)
+    }
+
+    function handleSort2(e) {
+        e.preventDefault();
+        dispatch(ordenPorPeso(e.target.value))
+        setPaginaActual(1);
+
+        setOrdenPeso(`OrdenadoPorPeso ${e.target.value}`)
     }
 
 
@@ -89,13 +100,18 @@ export default function Home() {
 
                 <select onChange={(e) => handleFilterDbOrApi(e)} id="asd">
                     <option value="todos">Todos</option>
-                    <option value="creados">Creados</option>
-                    <option value="existentes">Existentes</option>
+                    <option value="creados">DataBase</option>
+                    <option value="existentes">Api</option>
                 </select>
 
                 <select onChange={(e) => handleSort(e)}>
                     <option value="ascendete">Ascendente</option>
                     <option value="descendente">Descendente</option>
+                </select>
+
+                <select onChange={(e) => handleSort2(e)}>
+                    <option value="mayorPeso"> Mayor Peso</option>
+                    <option value="menorPeso"> Menor Peso</option>
                 </select>
 
             </div>

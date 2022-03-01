@@ -1,4 +1,7 @@
 .divDetalle{
     display: flex;
 }
-
+.textCardDetalle{
+    font-family: -webkit-body;
+    text-align: left;
+}

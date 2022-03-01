@@ -68,6 +68,34 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 razaLoaded: arrSort
             }
+        case "ORDEN_POR_PESO":
+            const arrSortPeso = action.payload === "mayorPeso" ?
+                state.razaLoaded.sort(function (a, b) {
+
+
+                    if (a.promedio > b.promedio) {
+                        return -1;
+                    }
+                    if (a.promedio < b.promedio) {
+                        return 1;
+                    }
+                    return 0;
+                }) :
+                state.razaLoaded.sort(function (a, b) {
+
+
+                    if (a.promedio > b.promedio) {
+                        return 1;
+                    }
+                    if (a.promedio < b.promedio) {
+                        return -1;
+                    }
+                    return 0;
+                })
+            return {
+                ...state,
+                razaLoaded: arrSortPeso
+            }
         case "GET_RAZA_SEARCH":
             return {
                 ...state, razaLoaded: action.payload

@@ -78,6 +78,13 @@ export function ordenPorNombre(payload) {
     }
 }
 
+export function ordenPorPeso(payload) {
+    return {
+        type: "ORDEN_POR_PESO",
+        payload
+    }
+}
+
 export function postFormulario(payload) {
     console.log(payload)
     return async function () {
