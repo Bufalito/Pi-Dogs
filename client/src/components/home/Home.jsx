@@ -8,6 +8,7 @@ import Nav from '../navBar/Nav';
 import Card from '../Card/Card';
 import { useDispatch, useSelector } from 'react-redux';
 import Paginado from '../Paginado/Paginado';
+import loading from "../../img/482.gif"
 
 
 export default function Home() {
@@ -75,7 +76,7 @@ export default function Home() {
 
     return (
         <div className='fd'>
-            {/* <SearchBar /> */}
+
             <Nav />
             <div className='botonesHome'>
                 <h1 className='titulo'><div className='textTitulo'>Individual Project - Henry Dogs</div></h1>
@@ -116,17 +117,20 @@ export default function Home() {
 
             </div>
 
-                <div className='asd'>
-                    {razasActuales.map(razas => {
-                        return (
-                            <div key={razas.id} className="divCard">
-                                <Link to={`/dogs/${razas.id}`} className="linkDiv" >
-                                    <Card pic={razas.url_image} nombre={razas.name} peso={razas.weight} temperamento={razas.temperaments} />
-                                </Link>
-                            </div>
-                        )
-                    })}
-                </div>
+            <div className='asd'>
+                {allRazas.length ?
+                razasActuales.map(razas => {
+                    return (
+                        <div key={razas.id} className="divCard">
+                            <Link to={`/dogs/${razas.id}`} className="linkDiv" >
+                                <Card pic={razas.url_image} nombre={razas.name} peso={razas.weight} temperamento={razas.temperaments} />
+                            </Link>
+                        </div>
+                    )
+                })
+            : <img src={loading} alt="" className='imgLoading' /> }
+
+            </div>
 
             <Paginado
                 razasPorPagina={razasPorPagina}

@@ -16,8 +16,6 @@ export default function DetalleRaza() {
     const detalleRaza = useSelector((state) => state.detalleRaza)
     const { id } = useParams();
 
-
-
     useEffect(() => {
         dispatch(getDetalleRaza(id))
     }, [dispatch, id]);
@@ -26,7 +24,7 @@ export default function DetalleRaza() {
         <div >
             <Nav />
 
-            {detalleRaza.map(raza => {
+            {detalleRaza?.map(raza => {
                 return (
                     <div key={raza.id} className="dsa">
                         <CardDetalle pic={raza.url_image} nombre={raza.name} altura={raza.height} peso={raza.weight} temperamento={raza.temperaments} añosDeVida={raza.life_span} />

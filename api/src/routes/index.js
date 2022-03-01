@@ -60,16 +60,39 @@ const getApiInfo = async () => {
 
 //Aca me traigo la info de la base de datos.
 const getDbInfo = async () => {
-    return await Dog.findAll({
-        includes: {
+    const dbDogs = await Dog.findAll({
+        attributes: [
+            "name",
+            "id",
+            "createdInDb",
+            "url_image",
+            "life_span",
+            "weight",
+            "height",
+
+        ],
+        include: {
             model: Temperament,
-            as: "temperament",
+            as: "temperaments",
             attributes: ["name"],
             through: {
                 attributes: [],
-            }
-        }
-    })
+            },
+        },
+    });
+
+    /* console.log("subcero",dbDogs[0]) */
+
+
+    const dbDogstoJson = dbDogs.map((dog) => dog.toJSON());
+    /* console.log("json", dbDogstoJson) */
+    dbDogstoJson.forEach(perro =>
+        perro.temperaments = perro.temperaments.map(e => e.name).join(", ")
+    )
+
+    /* console.log("te estas haceindo odiar temperamento", dbDogstoJson) */
+    return dbDogstoJson
+
 }
 
 

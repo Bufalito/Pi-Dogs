@@ -49,7 +49,7 @@ export default function Formulario() {
             url_image: "",
         })
         history.push("/home")
-        console.log("submit",input.temperament)
+        console.log("submit",input.temperament.toString())
     }
 
     useEffect(() => {
