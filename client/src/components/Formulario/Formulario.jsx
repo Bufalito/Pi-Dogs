@@ -4,6 +4,8 @@ import { postFormulario, getTemperaments } from "../../actions/index"
 import { useDispatch, useSelector } from "react-redux";
 
 import "./Formulario.css"
+import Card from "../Card/Card";
+import logo from "../../img/dog.png"
 
 export default function Formulario() {
     const dispatch = useDispatch()
@@ -18,7 +20,7 @@ export default function Formulario() {
         temperament: [],
         url_image: "",
     })
-    console.log(input.temperaments)
+    /* console.log(input.temperaments) */
 
 
     function handleChange(e) {
@@ -37,7 +39,7 @@ export default function Formulario() {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("hanldesubmit", input.temperaments)
+        /* console.log("hanldesubmit", input.temperaments) */
         dispatch(postFormulario(input))
         alert("Raza creada con exito!")
         setInput({
@@ -49,66 +51,70 @@ export default function Formulario() {
             url_image: "",
         })
         history.push("/home")
-        console.log("submit",input.temperament.toString())
+        /*   console.log("submit",input.temperament.toString()) */
     }
 
     useEffect(() => {
         dispatch(getTemperaments())
     }, [dispatch]);
 
+
+    /*  const raza = document.getElementById("name").value */
+
     return (
         <div>
-            <h1>Soy el formulario.</h1>
             <div>
                 <Link to="/home">
                     <button>Volver!</button>
                 </Link>
             </div>
+            <div className="fff">
+                {/* <h1>Soy el formulario.</h1> */}
 
-            <form onSubmit={(e) => handleSubmit(e)} className="formulario">
-                <div className="divForm">
-                    <h4>FORMULARIO</h4>
+                <form onSubmit={(e) => handleSubmit(e)} className="formulario">
+                    <div className="divForm">
+                        <h4>FORMULARIO</h4>
 
-                    <input
-                        type="text"
-                        placeholder="Nombre"
-                        id="nombre"
-                        value={input.name}
-                        name="name"
-                        onChange={(e) => handleChange(e)}
-                    /> <br /> {/* Nombre de la raza */}
-
-
-                    <input
-                        type="number"
-                        placeholder="Peso"
-                        id="peso"
-                        value={input.weight}
-                        name="weight"
-                        onChange={(e) => handleChange(e)}
-                    /> <br /> {/* Peso de la raza */}
+                        <input
+                            type="text"
+                            placeholder="Nombre"
+                            id="nombre"
+                            value={input.name}
+                            name="name"
+                            onChange={(e) => handleChange(e)}
+                        /> <br /> {/* Nombre de la raza */}
 
 
-                    <input
-                        type="number"
-                        placeholder="Altura"
-                        id="altura"
-                        value={input.height}
-                        name="height"
-                        onChange={handleChange}
-                    /> <br /> {/* Altura de la raza */}
+                        <input
+                            type="number"
+                            placeholder="Peso"
+                            id="peso"
+                            value={input.weight}
+                            name="weight"
+                            onChange={(e) => handleChange(e)}
+                        /> <br /> {/* Peso de la raza */}
 
 
-                    <input
-                        type="number"
-                        placeholder="Esperanza de vida"
-                        id="esperanzaVida"
-                        value={input.life_span}
-                        name="life_span"
-                        onChange={handleChange}
-                    /> <br /> {/* Esperanza de vida de la raza */}
+                        <input
+                            type="number"
+                            placeholder="Altura"
+                            id="altura"
+                            value={input.height}
+                            name="height"
+                            onChange={handleChange}
+                        /> <br /> {/* Altura de la raza */}
 
-                    {/* <label>Temperamentos:</label>
+
+                        <input
+                            type="number"
+                            placeholder="Esperanza de vida"
+                            id="esperanzaVida"
+                            value={input.life_span}
+                            name="life_span"
+                            onChange={handleChange}
+                        /> <br /> {/* Esperanza de vida de la raza */}
+
+                        {/* <label>Temperamentos:</label>
                     <input
                         type="text"
                         placeholder="Temperamentos"
@@ -117,34 +123,30 @@ export default function Formulario() {
                         name="temperaments"
                     /> <br /> {/* Temperamentos de la raza */}
 
-                    <input
-                        type="text"
-                        placeholder="Imagen.jpg"
-                        id="img"
-                        value={input.url_image}
-                        name="url_image"
-                        onChange={handleChange}
-                    /> <br /> {/* Imagen de la raza */}
+                        <input
+                            type="text"
+                            placeholder="Imagen.jpg"
+                            id="img"
+                            value={input.url_image}
+                            name="url_image"
+                            onChange={handleChange}
+                        /> <br /> {/* Imagen de la raza */}
 
-                    <select onChange={(e) => handleSelect(e)}>
-                        {temperamentos.map((el) => (
-                            <option key={el.id} value={el.name}>{el.name}</option>
-                        ))}
-                    </select> <br />
-                    <ul><li>{input.temperament.map(el => el + " ,")}</li></ul>
-
-                    <input type="submit" value="Crear" />
+                        <select onChange={(e) => handleSelect(e)}>
+                            {temperamentos.map((el) => (
+                                <option key={el.id} value={el.name}>{el.name}</option>
+                            ))}
+                        </select> <br />
+                        {input.temperament.map(el => el + " ,")}
+                        <div>
+                            <input type="submit" value="Crear" />
+                        </div>
+                    </div>
+                </form>
+                <div className="cardForm">
+                    <Card nombre={input.name} pic={input.url_image ? input.url_image : logo} peso={input.weight} temperamento={input.temperament.map(el => el + " ,")} />
                 </div>
-            </form>
-
-            {/*  <div className='cardFormulario' >
-                <h3 id="raza">Raza:{creadoCard()} <br /> </h3>
-                <h5>Peso:  Kg</h5>
-                <h5>Altura:  </h5>
-                <h6>Años de vida:  </h6>
-                <p><u> Temperamentos: </u> <br /> </p>
-                <img src="" alt="imagen perrito" className='imgForm' />
-            </div> */}
+            </div>
         </div>
     )
 }
