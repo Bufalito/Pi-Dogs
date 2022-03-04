@@ -10,15 +10,11 @@ const initialState = {
 function rootReducer(state = initialState, action) {
     switch (action.type) {
         case "GET_RAZA":
-            /* if (!state.razaLoaded.length) { */
+
             return {
                 ...state, razaLoaded: action.payload, totalRazas: action.payload
             }
-        /* } else {
-            return {
-                ...state, totalRazas: action.payload
-            }
-        } */
+
         case "GET_DETALLE_RAZA":
             return {
                 ...state, detalleRaza: action.payload
@@ -51,19 +47,19 @@ function rootReducer(state = initialState, action) {
         case "ORDEN_POR_NOMBRE":
             const arrSort = action.payload === "ascendete" ?
                 state.razaLoaded.sort(function (a, b) {
-                    if (a.name > b.name) {
+                    if (a.name.toLowerCase() > b.name.toLowerCase()) {
                         return 1;
                     }
-                    if (a.name < b.name) {
+                    if (a.name.toLowerCase() < b.name.toLowerCase()) {
                         return -1;
                     }
                     return 0;
                 }) :
                 state.razaLoaded.sort(function (a, b) {
-                    if (a.name > b.name) {
+                    if (a.name.toLowerCase() > b.name.toLowerCase()) {
                         return -1;
                     }
-                    if (a.name < b.name) {
+                    if (a.name.toLowerCase() < b.name.toLowerCase()) {
                         return 1;
                     }
                     return 0;

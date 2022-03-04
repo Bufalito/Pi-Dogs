@@ -18,6 +18,7 @@ const getApiInfo = async () => {
     const apiInfo = apiUrl.data.map(el => {
 
         const af = el.weight.metric.split("-")
+
         var aux = [];
         for (var i = 0; i < af.length; i++) {
             if (Number(af[i])) {
@@ -25,6 +26,7 @@ const getApiInfo = async () => {
                 aux;
             }
         }
+
         function abc(aux) {
             if (aux.length === 1) {
                 const valorUnico = aux[0];
@@ -36,6 +38,7 @@ const getApiInfo = async () => {
                 return valor;
             }
         }
+
 
         return {
             id: el.id,

@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import "./DetalleRaza.css";
 
-import { getDetalleRaza, vaciarDetalle} from '../../actions';
+import { getDetalleRaza} from '../../actions';
 import { useParams } from 'react-router-dom';
 
 import Nav from '../navBar/Nav';
 import CardDetalle from '../CardDetalle/CardDetalle';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import logoDefault from "../../img/dog.png"
 
 
 export default function DetalleRaza() {
@@ -20,10 +21,6 @@ export default function DetalleRaza() {
         dispatch(getDetalleRaza(id))
     }, [dispatch, id]);
 
-    function vaciar(){
-        dispatch(vaciarDetalle())
-    }
-
     return (
         <div >
             <Nav />
@@ -31,10 +28,10 @@ export default function DetalleRaza() {
             {detalleRaza?.map(raza => {
                 return (
                     <div key={raza.id} className="dsa">
-                        <CardDetalle pic={raza.url_image} nombre={raza.name} altura={raza.height} peso={raza.weight} temperamento={raza.temperaments} añosDeVida={raza.life_span} />
+                        <CardDetalle pic={raza.url_image ? raza.url_image : logoDefault} nombre={raza.name} altura={raza.height} peso={raza.weight} temperamento={raza.temperaments} añosDeVida={raza.life_span} />
 
                         <Link to="/home">
-                            <button className='btnDetalle' onClick={vaciar}>Home!</button>
+                            <button className='btnDetalle'>Home!</button>
                         </Link>
                     </div>
                 )

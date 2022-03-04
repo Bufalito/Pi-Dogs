@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./Home.css";
 import { Link } from 'react-router-dom';
 
-import { getRazaInfo, filtroRazasPorTemperamento, getTemperaments, filtroDbOrApi, ordenPorNombre, ordenPorPeso } from '../../actions';
+import { getRazaInfo, filtroRazasPorTemperamento, getTemperaments, filtroDbOrApi, ordenPorNombre, ordenPorPeso, vaciarDetalle } from '../../actions';
 
 import Nav from '../navBar/Nav';
 import Card from '../Card/Card';
@@ -18,13 +18,13 @@ export default function Home() {
     const allRazas = useSelector((state) => state.razaLoaded)
 
 
-    //////////////////////////////FILTRADO DE TEMPERAMENTOS///////////////////////////////////
-    const allTemperament = useSelector((state) => state.temperamentosRazas)   ////[....]
-    /*  console.log(allTemperament) */
-    //////////////////////////////FILTRADO DE TEMPERAMENTOS///////////////////////////////////
 
-    const [/* orden */, setOrden] = useState("")
-    const [/* ordenPeso */, setOrdenPeso] = useState("")
+    const allTemperament = useSelector((state) => state.temperamentosRazas)
+    /*  console.log(allTemperament) */
+
+
+    const [orden, setOrden] = useState("")
+    const [ordenPeso, setOrdenPeso] = useState("")
 
 
     ////////////////////////////PAGINADO////////////////////////////////////
@@ -33,17 +33,13 @@ export default function Home() {
     const indiceDeUltimaRaza = paginaActual * razasPorPagina
     const indiceDePrimerRaza = indiceDeUltimaRaza - razasPorPagina
     const razasActuales = allRazas.slice(indiceDePrimerRaza, indiceDeUltimaRaza)
-    console.log("donde estoy parado",paginaActual)
+    console.log("donde estoy parado", paginaActual)
 
 
     const paginado = (numeroPagina) => {
         setPaginaActual(numeroPagina)
     }
 
-    const next = () => {
-        //console.log(paginaActual)
-        setPaginaActual(paginaActual + 1)
-    }
 
     ////////////////////////////PAGINADO////////////////////////////////////
 
@@ -52,10 +48,16 @@ export default function Home() {
         dispatch(getTemperaments())
     }, [dispatch]);
 
+   /*  useEffect(() => {
+        dispatch(ordenPorNombre("ascendete"))
+    }, [razasActuales]) */
+
     function handleClick(e) {
         e.preventDefault();
         dispatch(getRazaInfo())
         setPaginaActual(1);
+        document.getElementById("ordenAlfabetico").value = "Orden alfabetico"
+        document.getElementById("ordenPeso").value = "Orden por peso"
     }
 
     function handleFilter(e) {
@@ -80,6 +82,10 @@ export default function Home() {
         setPaginaActual(1);
 
         setOrdenPeso(`OrdenadoPorPeso ${e.target.value}`)
+    }
+
+    function vaciar() {
+        dispatch(vaciarDetalle())
     }
 
 
@@ -109,29 +115,32 @@ export default function Home() {
                 </select>
 
                 <select onChange={(e) => handleFilterDbOrApi(e)} id="asd" className="btnsDelHome">
-                    <option value="todos">Todos</option>
+                    <option value="todos">Razas todas</option>
                     <option value="creados">Razas creadas</option>
                     <option value="existentes">Razas existentes</option>
                 </select>
 
-                <select onChange={(e) => handleSort(e)} className="btnsDelHome">
+                <select onChange={(e) => handleSort(e)} className="btnsDelHome" id='ordenAlfabetico'>
+                    <option>Orden alfabetico</option>
                     <option value="ascendete">A-Z</option>
                     <option value="descendente">Z-A</option>
                 </select>
 
-                <select onChange={(e) => handleSort2(e)} className="btnsDelHome">
+                <select onChange={(e) => handleSort2(e)} className="btnsDelHome" id='ordenPeso'>
+                    <option >Orden por peso</option>
                     <option value="mayorPeso"> Mayor Peso</option>
                     <option value="menorPeso"> Menor Peso</option>
                 </select>
 
             </div>
 
+
             <div className='asd'>
                 {allRazas.length ?
                     razasActuales.map(razas => {
                         return (
                             <div key={razas.id} className="divCard">
-                                <Link to={`/dogs/${razas.id}`} className="linkDiv" >
+                                <Link to={`/dogs/${razas.id}`} className="linkDiv" onClick={vaciar}>
                                     <Card pic={razas.url_image ? razas.url_image : logoDefault} nombre={razas.name} peso={razas.weight} temperamento={razas.temperaments} />
                                 </Link>
                             </div>
@@ -145,7 +154,6 @@ export default function Home() {
                 razasPorPagina={razasPorPagina}
                 allRazas={allRazas.length}
                 paginado={paginado}
-                next={next}
             />
 
         </div >
