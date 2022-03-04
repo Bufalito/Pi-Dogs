@@ -11,14 +11,12 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 
-//Aca me traigo la info de la api.
+//Info de la api.
 const getApiInfo = async () => {
     const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${api_key}`)
     //console.log(apiUrl)
     const apiInfo = apiUrl.data.map(el => {
 
-        /* const suma = Number(el.weight.metric.split("-")[0]) + Number(el.weight.metric.split("-")[1])
-        const promedio = suma / 2 */
         const af = el.weight.metric.split("-")
         var aux = [];
         for (var i = 0; i < af.length; i++) {
@@ -44,7 +42,7 @@ const getApiInfo = async () => {
             name: el.name,
             height: el.height.metric,
             weight: el.weight.metric,
-            //breed_group: el.breed_group,
+
             life_span: el.life_span,
             url_image: el.image.url,
             temperaments: el.temperament,
@@ -58,7 +56,7 @@ const getApiInfo = async () => {
 };
 //getApiInfo()
 
-//Aca me traigo la info de la base de datos.
+//Info de la base de datos.
 const getDbInfo = async () => {
     const dbDogs = await Dog.findAll({
         attributes: [
@@ -96,40 +94,33 @@ const getDbInfo = async () => {
 }
 
 
-//Aca me traigo todos los perros.
+//Todos los perros.
 const getAllDogs = async () => {
     const apiInfo = await getApiInfo();
     const dbInfo = await getDbInfo();
-    const infoTotal = apiInfo.concat(dbInfo); //Me devuelve un arreglo con toda la info solicitada, tanto de la api como de la base de datos.
+    const infoTotal = apiInfo.concat(dbInfo); //Info Db y Api
 
     //console.log(infoTotal);
     return infoTotal;
 }
-//getAllDogs()
-
 
 //GET /dogs.
 router.get("/dogs", async (req, res) => {
-    const name = req.query.name; //Busco si hay un query con propiedad name.
+    const name = req.query.name; //query => ?name = "..."
 
-    var dogsTotal = await getAllDogs(); //Me guardo en una variable el resultado de ejecutar la funcion que me trae a todos los perros
-    if (name) { //Ahora me pregunto si tengo un nombre por query.
-        var dogsName = await dogsTotal.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))//Si tengo un nombre por query me guardo en una variable los nombres que coincidan en el filtrado de todos los perros en general.
-        dogsName.length ? // Y me pregunto, si existe el nombre dado lo mando con un status 200 y si no me devuelve un mensaje de error.
+    var dogsTotal = await getAllDogs(); //getAllDogs() = [(todos los perros)]
+
+    if (name) {
+
+        var dogsName = await dogsTotal.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))//Filtro los coincidentes con query.
+        dogsName.length ?
             res.status(200).send(dogsName) :
             res.status(404).send("No existe la raza solicitada")
     } else {
-        res.status(200).send(dogsTotal);//Si no me proporcionan nombre por query me traigo a todos los perros.
+        res.status(200).send(dogsTotal);//Todos los perros.
     }
 
 })
-
-/* //GET/dogs?name="..."
-router.get(`/dogs?name="..."`, async (req, res) => {
-    Esta esta echa en la misma ruta principal porque la forma de query siempre va a ser igual.
-}) */
-
-
 
 //GET/dogs/{idRaza}
 router.get("/dogs/:id", async (req, res) => {
@@ -156,8 +147,6 @@ router.get("/temperament", async (req, res) => {
     ) //En una variable me guardo todos los temperamentos que existen en la api.(Tengo un array que cada elemento es una cadena de strings con muchso temperamentos)
     // console.log(temperament)
 
-    //Investigar .flat()
-
     var asd = function join(arr) {
         var newArray = []
         for (var i = 0; i < arr.length; i++) {
@@ -173,18 +162,18 @@ router.get("/temperament", async (req, res) => {
     //Con la funcion join me creo un array global que contenga a todos los temperamentos que existen concatenando a un array vacio el resultado de splitear cada cadena de string en sus comas. Si no estuviera el concat esto devolveria un array de muchos arrays.
 
     var daleKeVa = asd(temperament) //Me guardo en una variable la ejecucion de la funcion join, pasandole como argumento temperament.
-    console.log(daleKeVa)
+    //console.log(daleKeVa)
 
     daleKeVa.forEach(el => {
         Temperament.findOrCreate({
             where: {
                 name: el,
             }
-        })//Aca le digo que al array de strings que tengo que lo itere y que por cada uno busque si lo tiene y que si no lo cree en la base de datos, pasandole por nombre cada elemento iterado.
+        })
     })
 
-    const temperamentosTodos = await Temperament.findAll();//Aca voy a buscar todos los temperamentos que tengo en mi base de datos.
-    res.send(temperamentosTodos);//Mando todo mis temperamentos.
+    const temperamentosTodos = await Temperament.findAll();
+    res.send(temperamentosTodos);
 
 })
 
@@ -192,29 +181,27 @@ router.get("/temperament", async (req, res) => {
 router.post("/dog", async (req, res) => {
     const { name, height, weight, life_span, createdInDb, temperament, url_image } = req.body;
 
-    /*  console.log(name) */
+    //console.log(name)
 
 
-    /*   console.log("post temp", temperament) */
+    //console.log("post temp", temperament)
 
     const dogCreated = await Dog.create({
         name, height, weight, life_span, createdInDb, url_image
     });
-
-    /*   console.log("1, : ", res); */
 
     const temperamentDb = await Temperament.findAll({
         where: {
             name: temperament
         }
     });
-    console.log("tempdb", temperamentDb)
+    //console.log("tempdb", temperamentDb)
 
     dogCreated.addTemperament(temperamentDb);
 
 
     res.status(200).send(dogCreated);
-    console.log("asdasd", dogCreated)
+    //console.log("asdasd", dogCreated)
 
 
 });

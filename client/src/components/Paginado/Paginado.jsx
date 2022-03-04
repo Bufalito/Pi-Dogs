@@ -1,7 +1,7 @@
 import React from "react";
 import "./Paginado.css"
 
-export default function Paginado({ razasPorPagina, allRazas, paginado }) {
+export default function Paginado({ razasPorPagina, allRazas, paginado, next }) {
     const numeroPagina = []
 
     for (var i = 1; i <= Math.ceil(allRazas / razasPorPagina); i++) {
@@ -12,18 +12,17 @@ export default function Paginado({ razasPorPagina, allRazas, paginado }) {
     return (
         <nav>
             <ul className="paginado">
-
+                <button>asd</button>
                 {
                     numeroPagina && numeroPagina.map(number => {
                         return (
                             <li className="number" key={number}>
-
-                                <button onClick={() => paginado(number)}>{number}</button>
+                                <button onClick={() => paginado(number)} className="btnPaginado">{number}</button>
                             </li>
                         )
                     })
                 }
-
+                <button onClick={() => next()}>dsa</button>
             </ul>
         </nav >
     )

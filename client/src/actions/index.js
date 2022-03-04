@@ -1,15 +1,5 @@
 const axios = require("axios")
 
-/* export function addRaza(payload) {
-    return { type: "ADD_RAZA", payload };
-}
- */
-/* export function removeRaza(raza) {
-    return {
-        type: "REMOVE_RAZA",
-        payload: raza
-    };
-} */
 
 export function getRazaInfo() {
     return async function (dispatch) {
@@ -46,6 +36,13 @@ export function getDetalleRaza(id) {
             payload: getDetalleRaza.data
         })
     };
+}
+
+export function vaciarDetalle(){
+    return {
+        type: "VACIAR_RAZA",
+        payload: []
+    }
 }
 
 export function getTemperaments() {
@@ -93,3 +90,4 @@ export function postFormulario(payload) {
         return response;
     }
 }
+

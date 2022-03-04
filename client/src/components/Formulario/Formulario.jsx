@@ -44,7 +44,7 @@ export default function Formulario() {
         temperament: [],
         url_image: "",
     })
-    /* console.log(input.temperaments) */
+    /* console.log(input) */
 
 
     function handleChange(e) {
@@ -60,10 +60,16 @@ export default function Formulario() {
     }
 
     function handleSelect(e) {
-        setInput({
-            ...input,
-            temperament: [...input.temperament, e.target.value]
-        })
+        /* console.log(e.target.value) */
+        if (input.temperament.includes(e.target.value)) {
+            alert("Ya seleccionaste ese temperamento capo!")
+        } else {
+            setInput({
+                ...input,
+                temperament: [...input.temperament, e.target.value]
+            })
+        }
+        document.getElementById("selectT").value = "Temperamentos"
     }
     function handleSubmit(e) {
         e.preventDefault();
@@ -99,9 +105,9 @@ export default function Formulario() {
     return (
         <div>
             <Nav />
-            <div>
+            <div className="divBtnVolver">
                 <Link to="/home">
-                    <button>Volver!</button>
+                    <button className="btnForm">Volver!</button>
                 </Link>
             </div>
             <div className="fff">
@@ -160,14 +166,12 @@ export default function Formulario() {
                             onChange={handleChange}
                         /> <br /> {/* Imagen de la raza */}
 
-                        <select onChange={(e) => handleSelect(e)}>
+                        <select onChange={(e) => handleSelect(e)} className="selectForm" id="selectT">
+                            <option >Temperamentos</option>
                             {temperamentos.map((el) => (
                                 <option key={el.id} value={el.name}>{el.name}</option>
                             ))}
                         </select> <br />
-                        {/* {errors.temperament && (
-                            <p className={errors.temperament ? "tempIncorrecto" : ""} >{errors.temperament}</p>
-                        )} */}
 
                         {input.temperament.map(el =>
 
@@ -179,7 +183,7 @@ export default function Formulario() {
                         )}
 
                         <div>
-                            <input type={!(input.name || input.height) ? "button" : "submit"} value={!(input.name && input.height) ? "Completar Formulario" : "Enviar Formulario!"} />
+                            <input type={!(input.name && input.height && input.weight) ? "button" : "submit"} value={!(input.name && input.height) ? "Completar Formulario" : "Enviar Formulario!"} className="btnForm" />
                         </div>
 
                     </div>

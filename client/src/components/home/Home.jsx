@@ -33,10 +33,18 @@ export default function Home() {
     const indiceDeUltimaRaza = paginaActual * razasPorPagina
     const indiceDePrimerRaza = indiceDeUltimaRaza - razasPorPagina
     const razasActuales = allRazas.slice(indiceDePrimerRaza, indiceDeUltimaRaza)
+    console.log("donde estoy parado",paginaActual)
+
 
     const paginado = (numeroPagina) => {
         setPaginaActual(numeroPagina)
     }
+
+    const next = () => {
+        //console.log(paginaActual)
+        setPaginaActual(paginaActual + 1)
+    }
+
     ////////////////////////////PAGINADO////////////////////////////////////
 
     useEffect(() => {
@@ -81,37 +89,37 @@ export default function Home() {
             <Nav />
             <div className='botonesHome'>
                 <h1 className='titulo'><div className='textTitulo'>Individual Project - Henry Dogs</div></h1>
-                <button onClick={e => { handleClick(e) }} >
+                <button onClick={e => { handleClick(e) }} className="btnsDelHome" >
                     Recargar razas
                 </button>
 
                 <Link to={"/formulario"}>
-                    <button >
+                    <button className="btnsDelHome">
                         Crear nueva raza
                     </button>
                 </Link>
 
             </div>
             <div className='selectsHome'>
-                <select onChange={(e) => handleFilter(e)}>
+                <select onChange={(e) => handleFilter(e)} className="btnsDelHome">
                     <option value="Todas las razas">Todos los temperamentos</option>
                     {allTemperament && allTemperament.map(el => (
                         <option key={el.id} value={el.name}>{el.name}</option>
                     ))}
                 </select>
 
-                <select onChange={(e) => handleFilterDbOrApi(e)} id="asd">
+                <select onChange={(e) => handleFilterDbOrApi(e)} id="asd" className="btnsDelHome">
                     <option value="todos">Todos</option>
                     <option value="creados">Razas creadas</option>
                     <option value="existentes">Razas existentes</option>
                 </select>
 
-                <select onChange={(e) => handleSort(e)}>
+                <select onChange={(e) => handleSort(e)} className="btnsDelHome">
                     <option value="ascendete">A-Z</option>
                     <option value="descendente">Z-A</option>
                 </select>
 
-                <select onChange={(e) => handleSort2(e)}>
+                <select onChange={(e) => handleSort2(e)} className="btnsDelHome">
                     <option value="mayorPeso"> Mayor Peso</option>
                     <option value="menorPeso"> Menor Peso</option>
                 </select>
@@ -137,6 +145,7 @@ export default function Home() {
                 razasPorPagina={razasPorPagina}
                 allRazas={allRazas.length}
                 paginado={paginado}
+                next={next}
             />
 
         </div >

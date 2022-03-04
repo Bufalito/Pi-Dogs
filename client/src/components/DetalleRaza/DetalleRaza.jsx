@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import "./DetalleRaza.css";
 
-import { getDetalleRaza } from '../../actions';
+import { getDetalleRaza, vaciarDetalle} from '../../actions';
 import { useParams } from 'react-router-dom';
 
 import Nav from '../navBar/Nav';
@@ -20,6 +20,10 @@ export default function DetalleRaza() {
         dispatch(getDetalleRaza(id))
     }, [dispatch, id]);
 
+    function vaciar(){
+        dispatch(vaciarDetalle())
+    }
+
     return (
         <div >
             <Nav />
@@ -30,7 +34,7 @@ export default function DetalleRaza() {
                         <CardDetalle pic={raza.url_image} nombre={raza.name} altura={raza.height} peso={raza.weight} temperamento={raza.temperaments} añosDeVida={raza.life_span} />
 
                         <Link to="/home">
-                            <button className='btnDetalle'>Home!</button>
+                            <button className='btnDetalle' onClick={vaciar}>Home!</button>
                         </Link>
                     </div>
                 )

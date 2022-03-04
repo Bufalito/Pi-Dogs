@@ -41,8 +41,12 @@ function rootReducer(state = initialState, action) {
             }
         case "FILTRO_DB_OR_API":
             const dbOrApiFilter = action.payload === "creados" ? state.totalRazas.filter(el => el.createdInDb) : state.totalRazas.filter(el => !el.createdInDb)
-            return {
-                ...state, razaLoaded: action.payload === "todos" ? state.totalRazas : dbOrApiFilter
+            if (dbOrApiFilter.length) {
+                return {
+                    ...state, razaLoaded: action.payload === "todos" ? state.totalRazas : dbOrApiFilter
+                }
+            } else {
+                alert("No hay razas creadas")
             }
         case "ORDEN_POR_NOMBRE":
             const arrSort = action.payload === "ascendete" ?
@@ -103,6 +107,10 @@ function rootReducer(state = initialState, action) {
         case "POST_FORMULARIO":
             return {
                 ...state
+            }
+        case "VACIAR_RAZA":
+            return{
+                ...state, detalleRaza: action.payload
             }
         default:
             return state;

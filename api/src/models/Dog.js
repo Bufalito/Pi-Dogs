@@ -28,7 +28,6 @@ module.exports = (sequelize) => {
     url_image:{
       type: DataTypes.STRING,
     },
-    //Creo una propiedad que solo va a existir en los dogs que esten en base de datos, para luego simplificar la busqueda.
     createdInDb: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

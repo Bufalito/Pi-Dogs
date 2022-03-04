@@ -5,9 +5,7 @@ import { getRazaSearch } from '../actions'
 import "./navBar/Nav.css"
 
 
-/* Aca tenog que importar el useState y trabajar con Hooks */
-
-export default function SearchBar(/* aca tenog que pasarle la funcoin que busca */) {
+export default function SearchBar() {
     const dispatch = useDispatch()
     /* const history = useHistory() */
     const [raza, setRaza] = useState("")
@@ -19,6 +17,8 @@ export default function SearchBar(/* aca tenog que pasarle la funcoin que busca 
     }
     console.log(raza)
 
+
+    //provar primero redireccionar y despues mostrar
     function onSubmit(e) {
         e.preventDefault()
         dispatch(getRazaSearch(raza))
@@ -37,7 +37,7 @@ export default function SearchBar(/* aca tenog que pasarle la funcoin que busca 
                 placeholder='Buscar Raza'
                 onChange={(e) => onChange(e)}
             />
-            <input id='input2' type="submit" value="Buscar" onClick={onSubmit} />
+            <input id='input2' type="submit" value="Buscar" onClick={onSubmit} className="btnSearch"/>
             </div>
         </form >
     )
