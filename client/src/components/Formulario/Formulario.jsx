@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { postFormulario, getTemperaments } from "../../actions/index"
 import { useDispatch, useSelector } from "react-redux";
 
@@ -39,7 +39,7 @@ export default function Formulario() {
     const [input, setInput] = useState({
         name: "",
         height: "",
-        weight: "",
+        promedio: "",
         life_span: "",
         temperament: [],
         url_image: "",
@@ -79,7 +79,7 @@ export default function Formulario() {
         setInput({
             name: "",
             height: "",
-            weight: "",
+            promedio: "",
             life_span: "",
             temperament: [],
             url_image: "",
@@ -132,7 +132,7 @@ export default function Formulario() {
                             type="number"
                             placeholder={errors.weight ? errors.weight : "Peso (Kg)"}
                             id="peso"
-                            value={input.weight}
+                            value={input.promedio}
                             name="weight"
                             onChange={(e) => handleChange(e)}
                             className={errors.weight ? "placeIncorrecto" : ""}

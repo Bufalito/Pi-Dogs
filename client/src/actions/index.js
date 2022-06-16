@@ -3,7 +3,7 @@ const axios = require("axios")
 
 export function getRazaInfo() {
     return async function (dispatch) {
-        const getRazaInfo = await axios("http://localhost:3001/dogs")
+        const getRazaInfo = await axios("/dogs")
 
         return dispatch({ type: "GET_RAZA", payload: getRazaInfo.data });
     };
@@ -12,7 +12,7 @@ export function getRazaInfo() {
 export function getRazaSearch(name) {
     return async function (dispatch) {
         try {
-            const getRazaSearch = await axios(`http://localhost:3001/dogs?name=${name}`)
+            const getRazaSearch = await axios(`/dogs?name=${name}`)
 
             return dispatch({
                 type: "GET_RAZA_SEARCH",
@@ -29,7 +29,7 @@ export function getRazaSearch(name) {
 
 export function getDetalleRaza(id) {
     return async function (dispatch) {
-        const getDetalleRaza = await axios(`http://localhost:3001/dogs/${id}`)
+        const getDetalleRaza = await axios(`/dogs/${id}`)
 
         return dispatch({
             type: "GET_DETALLE_RAZA",
@@ -38,7 +38,7 @@ export function getDetalleRaza(id) {
     };
 }
 
-export function vaciarDetalle(){
+export function vaciarDetalle() {
     return {
         type: "VACIAR_RAZA",
         payload: []
@@ -47,7 +47,7 @@ export function vaciarDetalle(){
 
 export function getTemperaments() {
     return async function (dispatch) {
-        const getRazaInfo = await axios("http://localhost:3001/temperament")
+        const getRazaInfo = await axios("/temperament")
 
         return dispatch({ type: "GET_TEMPERAMENTS", payload: getRazaInfo.data });
     };
@@ -85,7 +85,7 @@ export function ordenPorPeso(payload) {
 export function postFormulario(payload) {
     console.log(payload)
     return async function () {
-        const response = await axios.post("http://localhost:3001/dog", payload);
+        const response = await axios.post("/dog", payload);
         /* console.log(response) */
         return response;
     }

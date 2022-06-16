@@ -56,12 +56,13 @@ export default function Home() {
         e.preventDefault();
         dispatch(getRazaInfo())
         setPaginaActual(1);
-        document.getElementById("ordenAlfabetico").value = "Orden alfabetico"
-        document.getElementById("ordenPeso").value = "Orden por peso"
+
     }
 
     function handleFilter(e) {
+        setPaginaActual(1)
         dispatch(filtroRazasPorTemperamento(e.target.value))
+
     }
 
     function handleFilterDbOrApi(e) {
@@ -120,14 +121,12 @@ export default function Home() {
                     <option value="existentes">Razas existentes</option>
                 </select>
 
-                <select onChange={(e) => handleSort(e)} className="btnsDelHome" id='ordenAlfabetico'>
-                    <option>Orden alfabetico</option>
+                <select onChange={(e) => handleSort(e)} className="btnsDelHome">
                     <option value="ascendete">A-Z</option>
                     <option value="descendente">Z-A</option>
                 </select>
 
                 <select onChange={(e) => handleSort2(e)} className="btnsDelHome" id='ordenPeso'>
-                    <option >Orden por peso</option>
                     <option value="mayorPeso"> Mayor Peso</option>
                     <option value="menorPeso"> Menor Peso</option>
                 </select>

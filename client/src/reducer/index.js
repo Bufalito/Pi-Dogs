@@ -105,7 +105,7 @@ function rootReducer(state = initialState, action) {
                 ...state
             }
         case "VACIAR_RAZA":
-            return{
+            return {
                 ...state, detalleRaza: action.payload
             }
         default:
