@@ -68,7 +68,7 @@ const getDbInfo = async () => {
             "createdInDb",
             "url_image",
             "life_span",
-            "weight",
+            "promedio",
             "height",
 
         ],
@@ -182,7 +182,7 @@ router.get("/temperament", async (req, res) => {
 
 //POST/dog
 router.post("/dog", async (req, res) => {
-    const { name, height, weight, life_span, createdInDb, temperament, url_image } = req.body;
+    const { name, height, promedio, life_span, createdInDb, temperament, url_image } = req.body;
 
     //console.log(name)
 
@@ -190,7 +190,7 @@ router.post("/dog", async (req, res) => {
     //console.log("post temp", temperament)
 
     const dogCreated = await Dog.create({
-        name, height, weight, life_span, createdInDb, url_image
+        name, height, promedio, life_span, createdInDb, url_image
     });
 
     const temperamentDb = await Temperament.findAll({

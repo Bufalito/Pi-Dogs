@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    weight: {
+    promedio: {
       type: DataTypes.STRING,
       allowNull: false,
     },
