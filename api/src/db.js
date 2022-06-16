@@ -31,14 +31,9 @@ let sequelize =
       ssl: true,
     })
     : new Sequelize(
-      `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/development`,
+      `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/dogs`,
       { logging: false, native: false }
     );
-conn.sync({ force: true }).then(() => {
-  server.listen(process.env.PORT, () => {
-    console.log("%s listening at 3000"); // eslint-disable-line no-console
-  });
-});
 
 /* const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/dogs`, {
   logging: false, // set to console.log to see the raw SQL queries
